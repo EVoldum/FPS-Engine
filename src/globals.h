@@ -42,7 +42,7 @@ extern float recoilAmount;
 
 // WORLD
 extern std::vector<glm::vec3> cubePositions;
-extern std::vector<bool> cubeActive;
+extern std::vector<uint8_t> cubeActive;
 
 // Hit feedback
-std::vector<float> hitTimer;
+extern std::vector<float> hitTimer;

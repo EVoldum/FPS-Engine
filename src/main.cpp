@@ -11,6 +11,7 @@
 #include "physics.h"
 #include "render.h"
 #include "player.h"
+#include "audio.h"
 
 const char *vertexShaderSource = "#version 330 core\n"
                                  "layout (location = 0) in vec3 aPos;\n"
@@ -209,6 +210,8 @@ int main()
     cubeActive.resize(cubePositions.size(), true);
     hitTimer.resize(cubePositions.size(), 0.0f);
 
+    initAudio();
+
     // Game loop
     while (!glfwWindowShouldClose(window))
     {
@@ -308,5 +311,6 @@ int main()
     }
 
     glfwTerminate();
+    cleanupAudio();
     return 0;
 }

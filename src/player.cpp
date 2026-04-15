@@ -1,9 +1,10 @@
 #include "player.h"
 #include "globals.h"
 #include "physics.h"
+#include "audio.h"
 #include <iostream>
 
-// 🔹 movement + physics
+// movement + physics
 void updatePlayer(GLFWwindow *window)
 {
     float baseSpeed = 8.0f;
@@ -94,7 +95,7 @@ void updatePlayer(GLFWwindow *window)
         cameraPos = newPos;
 }
 
-// 🔹 shooting
+// shooting
 void handleShooting(GLFWwindow *window)
 {
     bool currentMouseState = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
@@ -105,6 +106,8 @@ void handleShooting(GLFWwindow *window)
 
         if (currentTime - lastShotTime >= fireCooldown)
         {
+            playSound("assets/shot.mp3");
+
             recoilOffset += recoilAmount;
             lastShotTime = currentTime;
 
@@ -135,7 +138,7 @@ void handleShooting(GLFWwindow *window)
     }
 }
 
-// 🔹 single source of truth
+// single source of truth
 glm::vec3 getEyePosition()
 {
     glm::vec3 eyePos = cameraPos + glm::vec3(0.0f, playerHeight, 0.0f);
