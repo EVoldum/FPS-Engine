@@ -43,7 +43,14 @@ void updatePlayer(GLFWwindow *window)
     if (glm::length(velocity) > maxSpeed)
         velocity = glm::normalize(velocity) * maxSpeed;
 
-    velocity -= velocity * friction * deltaTime;
+    float speed = glm::length(velocity);
+
+    if (speed > 0.0f)
+    {
+        float drop = speed * friction * deltaTime;
+        float newSpeed = std::max(0.0f, speed - drop);
+        velocity *= newSpeed / speed;
+    }
 
     newPos += velocity * deltaTime;
 
@@ -103,11 +110,20 @@ void handleShooting(GLFWwindow *window)
 
             glm::vec3 eyePos = getEyePosition();
 
+            float spread = 0.008f;
+
+            glm::vec3 shotDir = cameraFront;
+            shotDir.x += ((rand() % 100) / 100.0f - 0.5f) * spread;
+            shotDir.y += ((rand() % 100) / 100.0f - 0.5f) * spread;
+
+            shotDir = glm::normalize(shotDir);
+
             int hit = raycast(eyePos, cameraFront, cubePositions, cubeActive);
 
             if (hit != -1 && cubeActive[hit])
             {
                 cubeActive[hit] = false;
+                hitTimer[hit] = 0.1f;
                 std::cout << "Destroyed cube: " << hit << "\n";
             }
 

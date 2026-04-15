@@ -41,4 +41,6 @@ float recoilAmount = 1.5f;
 
 // WORLD
 std::vector<glm::vec3> cubePositions;
-std::vector<bool> cubeActive;
+std::vector<uint8_t> cubeActive;
+
+std::vector<float> hitTimer;

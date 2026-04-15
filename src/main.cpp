@@ -207,6 +207,7 @@ int main()
     }
 
     cubeActive.resize(cubePositions.size(), true);
+    hitTimer.resize(cubePositions.size(), 0.0f);
 
     // Game loop
     while (!glfwWindowShouldClose(window))
@@ -226,8 +227,10 @@ int main()
         updatePlayer(window);
 
         // CAMERA SMOOTHING
-        smoothYaw += (yaw - smoothYaw) * mouseSmoothness * deltaTime;
-        smoothPitch += (pitch - smoothPitch) * mouseSmoothness * deltaTime;
+        float t = 1.0f - exp(-mouseSmoothness * deltaTime);
+
+        smoothYaw += (yaw - smoothYaw) * t;
+        smoothPitch += (pitch - smoothPitch) * t;
 
         updateCameraDirection();
 
