@@ -3,6 +3,7 @@
 g++ src/*.cpp libs/glad/src/glad.c ^
 -Ilibs/glfw/include ^
 -Ilibs/glad/include ^
+-Ilibs/miniaudio ^
 -Ilibs/glm ^
 -Llibs/glfw/lib-mingw-w64 ^
 -lglfw3 -lopengl32 -lgdi32 ^

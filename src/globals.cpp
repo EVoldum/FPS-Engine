@@ -44,3 +44,5 @@ std::vector<glm::vec3> cubePositions;
 std::vector<uint8_t> cubeActive;
 
 std::vector<float> hitTimer;
+
+float gunBobTime = 0.0f;

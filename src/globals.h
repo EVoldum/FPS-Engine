@@ -46,3 +46,6 @@ extern std::vector<uint8_t> cubeActive;
 
 // Hit feedback
 extern std::vector<float> hitTimer;
+
+// GUN
+extern float gunBobTime;

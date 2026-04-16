@@ -12,6 +12,7 @@
 #include "render.h"
 #include "player.h"
 #include "audio.h"
+#include "gun.h"
 
 const char *vertexShaderSource = "#version 330 core\n"
                                  "layout (location = 0) in vec3 aPos;\n"
@@ -212,6 +213,9 @@ int main()
 
     initAudio();
 
+    Gun gun = loadGun("assets/ak47/Ak-47.obj");
+    std::cout << "Gun vertex count: " << gun.vertexCount << "\n";
+
     // Game loop
     while (!glfwWindowShouldClose(window))
     {
@@ -292,6 +296,10 @@ int main()
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
+        // GUN VIEWMODEL
+        glClear(GL_DEPTH_BUFFER_BIT);
+        drawGun(shaderProgram, gun, modelLoc, viewLoc, projLoc, colorLoc);
+
         // CROSSHAIR
         glUniform3f(colorLoc, 0.0f, 0.5f, 1.0f);
         glDisable(GL_DEPTH_TEST);
@@ -310,7 +318,8 @@ int main()
         glfwPollEvents();
     }
 
-    glfwTerminate();
+    cleanupGun(gun);
     cleanupAudio();
+    glfwTerminate();
     return 0;
 }
